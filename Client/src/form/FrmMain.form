@@ -17,12 +17,12 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemAddMemberActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemReview">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemReviewMembers">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Review"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemReviewActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemReviewMembersActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemLiabilities">
@@ -39,11 +39,38 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemAddPublication">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Add"/>
+                <Property name="text" type="java.lang.String" value="New"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemAddPublicationActionPerformed"/>
               </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemReviewPublications">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Review"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenuPublisher">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Publishers"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemAddPublisher">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="New"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemReviewPublishers">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Review"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemPurchaseOrder">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Purchase order"/>
+              </Properties>
             </MenuItem>
           </SubComponents>
         </Menu>

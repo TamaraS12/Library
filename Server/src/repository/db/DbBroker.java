@@ -6,6 +6,7 @@ package repository.db;
 
 import domain.Member;
 import domain.Employee;
+import domain.Publisher;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class DbBroker {
     public Object getUser(Employee employee) throws SQLException {
 
         try {
-            String query = "SELECT employeeID, name, last_name, username, password, email FROM employees WHERE username=? AND password=?";
+            String query = "SELECT employeeID, name, last_name, username, password, email FROM employee WHERE username=? AND password=?";
             System.out.println("Query: " + query);
 
             PreparedStatement statement = connection.prepareStatement(query);
@@ -62,7 +63,7 @@ public class DbBroker {
     public Object getAllMembers() {
         try {
             List<Member> members = new ArrayList<>();
-            String query = "SELECT * FROM members";
+            String query = "SELECT * FROM member";
             System.out.println("Query:" + query);
 
             Statement statement = connection.createStatement();
@@ -92,7 +93,7 @@ public class DbBroker {
 
     public void addMember(Member member) {
         try {
-            String query = "INSERT INTO members (name, last_name, email, phone_number, address) VALUES (?,?,?,?,?)";
+            String query = "INSERT INTO member (name, last_name, email, phone_number, address) VALUES (?,?,?,?,?)";
             System.out.println("Query:" + query);
 
             PreparedStatement statement = connection.prepareStatement(query);
@@ -113,7 +114,7 @@ public class DbBroker {
 
     public void updateMember(Member member) {
         try {
-            String query = "UPDATE members SET name=?, last_name=?, email=?, phone_number=?, address=? WHERE memberID=? ";
+            String query = "UPDATE member SET name=?, last_name=?, email=?, phone_number=?, address=? WHERE memberID=? ";
             System.out.println("Query:" + query);
 
             PreparedStatement statement = connection.prepareStatement(query);
@@ -126,16 +127,19 @@ public class DbBroker {
             statement.executeUpdate();
             statement.close();
             System.out.println("Member successfully updated!");
+          
 
         } catch (SQLException ex) {
             System.out.println("Member was not updated!");
             ex.printStackTrace();
+            
         }
+   
     }
 
     public void deleteMember(Member member) {
         try {
-            String query = "DELETE FROM members WHERE memberID=? ";
+            String query = "DELETE FROM member WHERE memberID=? ";
             System.out.println("Query:" + query);
 
             PreparedStatement statement = connection.prepareStatement(query);
@@ -147,5 +151,34 @@ public class DbBroker {
             System.out.println("Member was not deleted!");
             ex.printStackTrace();
         }
+    }
+
+    public Object getAllPublishers() {
+         try {
+            List<Publisher> publishers = new ArrayList<>();
+            String query = "SELECT * FROM publisher";
+            System.out.println("Query:" + query);
+
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+
+            while (rs.next()) {
+                Publisher publisher = new Publisher();
+                publisher.setPublisherID(rs.getLong("publisherID"));
+                publisher.setName(rs.getString("name"));
+                publisher.setAddress(rs.getString("address"));
+                publisher.setEmail(rs.getString("email"));
+                publishers.add(publisher);
+            }
+            rs.close();
+            statement.close();
+            System.out.println("Successful loading of publishers from the database!");
+            return publishers;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.out.println("Publishers were not successfully loaded from the database!");
+
+        }
+        return null;
     }
 }

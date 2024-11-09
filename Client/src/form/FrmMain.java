@@ -43,10 +43,15 @@ public class FrmMain extends javax.swing.JFrame {
         jMenuBarMain = new javax.swing.JMenuBar();
         jMenuMember = new javax.swing.JMenu();
         jMenuItemAddMember = new javax.swing.JMenuItem();
-        jMenuItemReview = new javax.swing.JMenuItem();
+        jMenuItemReviewMembers = new javax.swing.JMenuItem();
         jMenuItemLiabilities = new javax.swing.JMenuItem();
         jMenuPublication = new javax.swing.JMenu();
         jMenuItemAddPublication = new javax.swing.JMenuItem();
+        jMenuItemReviewPublications = new javax.swing.JMenuItem();
+        jMenuPublisher = new javax.swing.JMenu();
+        jMenuItemAddPublisher = new javax.swing.JMenuItem();
+        jMenuItemReviewPublishers = new javax.swing.JMenuItem();
+        jMenuItemPurchaseOrder = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Welcome!");
@@ -62,13 +67,13 @@ public class FrmMain extends javax.swing.JFrame {
         });
         jMenuMember.add(jMenuItemAddMember);
 
-        jMenuItemReview.setText("Review");
-        jMenuItemReview.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemReviewMembers.setText("Review");
+        jMenuItemReviewMembers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemReviewActionPerformed(evt);
+                jMenuItemReviewMembersActionPerformed(evt);
             }
         });
-        jMenuMember.add(jMenuItemReview);
+        jMenuMember.add(jMenuItemReviewMembers);
 
         jMenuItemLiabilities.setText("Liabilities");
         jMenuMember.add(jMenuItemLiabilities);
@@ -77,7 +82,7 @@ public class FrmMain extends javax.swing.JFrame {
 
         jMenuPublication.setText("Publications");
 
-        jMenuItemAddPublication.setText("Add");
+        jMenuItemAddPublication.setText("New");
         jMenuItemAddPublication.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemAddPublicationActionPerformed(evt);
@@ -85,7 +90,23 @@ public class FrmMain extends javax.swing.JFrame {
         });
         jMenuPublication.add(jMenuItemAddPublication);
 
+        jMenuItemReviewPublications.setText("Review");
+        jMenuPublication.add(jMenuItemReviewPublications);
+
         jMenuBarMain.add(jMenuPublication);
+
+        jMenuPublisher.setText("Publishers");
+
+        jMenuItemAddPublisher.setText("New");
+        jMenuPublisher.add(jMenuItemAddPublisher);
+
+        jMenuItemReviewPublishers.setText("Review");
+        jMenuPublisher.add(jMenuItemReviewPublishers);
+
+        jMenuItemPurchaseOrder.setText("Purchase order");
+        jMenuPublisher.add(jMenuItemPurchaseOrder);
+
+        jMenuBarMain.add(jMenuPublisher);
 
         setJMenuBar(jMenuBarMain);
 
@@ -108,10 +129,10 @@ public class FrmMain extends javax.swing.JFrame {
         frmAddMember.setVisible(true);
     }//GEN-LAST:event_jMenuItemAddMemberActionPerformed
 
-    private void jMenuItemReviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemReviewActionPerformed
+    private void jMenuItemReviewMembersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemReviewMembersActionPerformed
         frmReview = new FrmReview(this, true);
         frmReview.setVisible(true);
-    }//GEN-LAST:event_jMenuItemReviewActionPerformed
+    }//GEN-LAST:event_jMenuItemReviewMembersActionPerformed
 
     private void jMenuItemAddPublicationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAddPublicationActionPerformed
         frmAddPublication = new FrmAddPublication(this, true);
@@ -123,10 +144,15 @@ public class FrmMain extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBarMain;
     private javax.swing.JMenuItem jMenuItemAddMember;
     private javax.swing.JMenuItem jMenuItemAddPublication;
+    private javax.swing.JMenuItem jMenuItemAddPublisher;
     private javax.swing.JMenuItem jMenuItemLiabilities;
-    private javax.swing.JMenuItem jMenuItemReview;
+    private javax.swing.JMenuItem jMenuItemPurchaseOrder;
+    private javax.swing.JMenuItem jMenuItemReviewMembers;
+    private javax.swing.JMenuItem jMenuItemReviewPublications;
+    private javax.swing.JMenuItem jMenuItemReviewPublishers;
     private javax.swing.JMenu jMenuMember;
     private javax.swing.JMenu jMenuPublication;
+    private javax.swing.JMenu jMenuPublisher;
     // End of variables declaration//GEN-END:variables
 
     public FrmAddMember getFrmAddMember() {
@@ -178,5 +204,9 @@ public class FrmMain extends javax.swing.JFrame {
             this.revalidate();
             this.repaint();
         }
+    }
+
+    public FrmAddPublication getFrmAddPublication() {
+        return frmAddPublication;
     }
 }

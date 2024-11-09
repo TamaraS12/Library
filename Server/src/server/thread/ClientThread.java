@@ -7,6 +7,7 @@ package server.thread;
 import communication.*;
 import domain.Member;
 import domain.Employee;
+import domain.Publisher;
 import java.net.Socket;
 import java.util.List;
 import logic.Controller;
@@ -72,7 +73,11 @@ public class ClientThread extends Thread {
                             response.setResult(null);
                             response.setOperation(Operation.DeleteMember);
                             break;
-                           
+                        case GetAllPublishers:
+                            List<Publisher> publishers = Controller.getInstance().getAllPublishers();
+                            response.setResult(publishers);
+                            response.setOperation(Operation.GetAllPublishers);
+                            break;
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();

@@ -9,6 +9,7 @@ import communication.Receiver;
 import controller.Controller;
 import domain.Member;
 import domain.Employee;
+import domain.Publisher;
 import form.FrmLogin;
 import form.FrmMain;
 import java.io.IOException;
@@ -27,6 +28,7 @@ public class Client {
     private Receiver receiver;
     private Socket socket;
     private Employee employee;
+    private List<Member> members;
 
     public Client() throws IOException {
         frmLogin = new FrmLogin("Login");
@@ -52,7 +54,7 @@ public class Client {
                             }
                             break;
                         case GetAllMembers:
-                            List<Member> members = (List<Member>) response.getResult();
+                            members = (List<Member>) response.getResult();
                             frmMain.getFrmReview().addMembers(members);
                             break;
                         case AddMember:
@@ -60,15 +62,16 @@ public class Client {
                             if (response.getException() == null) {
                                 JOptionPane.showMessageDialog(frmMain.getFrmAddMember(), "New member successfully added!", "Enrollment", JOptionPane.INFORMATION_MESSAGE);
                                 frmMain.getFrmAddMember().dispose();
+                                frmMain.getFrmReview().refreshTable();
                             } else {
                                 throw response.getException();
                             }
                             break;
                         case UpdateMember:
                             if (response.getException() == null) {
-                                JOptionPane.showMessageDialog(frmMain.getFrmReview().getFrmAddMember(), "Successful update! ", "Update", JOptionPane.INFORMATION_MESSAGE);
-                                //  frmMain.getFrmPregled().refreshTable();
                                 frmMain.getFrmReview().getFrmAddMember().dispose();
+                                JOptionPane.showMessageDialog(frmMain.getFrmReview().getFrmAddMember(), "Successful update! ", "Update", JOptionPane.INFORMATION_MESSAGE);
+                                Controller.getInstance().getAllMembers();
                             } else {
                                 throw response.getException();
                             }
@@ -76,11 +79,16 @@ public class Client {
                         case DeleteMember:
                             if (response.getException() == null) {
                                 JOptionPane.showMessageDialog(frmMain.getFrmReview(), "Member successfully deleted! ", "Delete", JOptionPane.INFORMATION_MESSAGE);
+//                                frmMain.getFrmReview().refreshTable();
+                                Controller.getInstance().getAllMembers();
                             } else {
                                 throw response.getException();
                             }
                             break;
-
+                        case GetAllPublishers:
+                            List<Publisher> publishers = (List<Publisher>) response.getResult();
+                            frmMain.getFrmAddPublication().setPublisherComboBox(publishers);
+                            break;
                     }
                 }
             } catch (Exception ex) {

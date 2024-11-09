@@ -4,8 +4,10 @@
  */
 package logic;
 
+import logic.so.GetAllPublishers;
 import domain.Member;
 import domain.Employee;
+import domain.Publisher;
 import java.util.List;
 import logic.so.AddMember;
 import logic.so.DeleteMember;
@@ -55,6 +57,7 @@ public class Controller {
     public void updateMember(Member member) throws Exception {
         UpdateMember so = new UpdateMember();
         so.execute(member);
+       
                 
     }
 
@@ -62,4 +65,12 @@ public class Controller {
         DeleteMember so = new DeleteMember();
         so.execute(member);
     }
+
+    public List<Publisher> getAllPublishers() throws Exception {
+        GetAllPublishers so = new GetAllPublishers();
+        so.execute(null);
+        return (List<Publisher>) so.getResult();
+    }
+
+    
 }

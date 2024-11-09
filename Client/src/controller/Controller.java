@@ -73,4 +73,9 @@ public class Controller {
         sender.send(request);
     }
 
+    public void getAllPublishers() {
+        Request request = new Request(Operation.GetAllPublishers, null);
+        sender.send(request);
+    }
+
 }
