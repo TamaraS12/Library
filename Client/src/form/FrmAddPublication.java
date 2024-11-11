@@ -5,7 +5,11 @@
 package form;
 
 import controller.Controller;
+import domain.Member;
+import domain.Publication;
 import domain.Publisher;
+import static form.FormMode.EDIT;
+import static form.FormMode.NEW;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
@@ -17,12 +21,12 @@ import java.util.logging.Logger;
  */
 public class FrmAddPublication extends javax.swing.JDialog {
 
-    /**
-     * Creates new form FrmAddPublication
-     */
-    public FrmAddPublication(java.awt.Frame parent, boolean modal) {
+    FormMode mode;
+
+    public FrmAddPublication(java.awt.Frame parent, boolean modal, FormMode mode) {
         super(parent, modal);
         initComponents();
+        this.mode = mode;
         centerForm();
         getPublishers();
     }
@@ -64,6 +68,11 @@ public class FrmAddPublication extends javax.swing.JDialog {
         jComboBoxPublishers.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -134,7 +143,20 @@ public class FrmAddPublication extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+
+        if (mode == NEW) {
+            try {
+                Publisher publisher = (Publisher) jComboBoxPublishers.getSelectedItem();
+                Publication publication = new Publication(txtTitle.getText().trim(), txtAuthor.getText().trim(), Long.valueOf(txtQuantity.getText().trim()), Double.parseDouble(txtPrice.getText().trim()), publisher.getPublisherID());
+                Controller.getInstance().addPublication(publication);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        } else if (mode == EDIT) {
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSaveActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSave;

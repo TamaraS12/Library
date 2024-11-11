@@ -7,6 +7,7 @@ package server.thread;
 import communication.*;
 import domain.Member;
 import domain.Employee;
+import domain.Publication;
 import domain.Publisher;
 import java.net.Socket;
 import java.util.List;
@@ -78,6 +79,10 @@ public class ClientThread extends Thread {
                             response.setResult(publishers);
                             response.setOperation(Operation.GetAllPublishers);
                             break;
+                        case AddPublication:   
+                            Publication publication = Controller.getInstance().addPublication((Publication) request.getArgument());
+                            response.setResult(publication);
+                            response.setOperation(Operation.AddPublication);
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();

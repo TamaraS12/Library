@@ -11,6 +11,7 @@ import communication.Response;
 import communication.Sender;
 import domain.Member;
 import domain.Employee;
+import domain.Publication;
 import java.io.IOException;
 import java.net.Socket;
 
@@ -75,6 +76,11 @@ public class Controller {
 
     public void getAllPublishers() {
         Request request = new Request(Operation.GetAllPublishers, null);
+        sender.send(request);
+    }
+
+    public void addPublication(Publication publication) {
+        Request request = new Request(Operation.AddPublication, publication);
         sender.send(request);
     }
 

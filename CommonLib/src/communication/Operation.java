@@ -18,4 +18,5 @@ public enum Operation {
     FindMember,
     DeleteMember,
     GetAllPublishers,
+    AddPublication,
 }

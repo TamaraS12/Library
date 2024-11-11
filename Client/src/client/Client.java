@@ -89,6 +89,15 @@ public class Client {
                             List<Publisher> publishers = (List<Publisher>) response.getResult();
                             frmMain.getFrmAddPublication().setPublisherComboBox(publishers);
                             break;
+                        case AddPublication:
+                            if (response.getException() == null) {
+                                JOptionPane.showMessageDialog(frmMain.getFrmAddPublication(), "New publication successfully added!", "Enrollment", JOptionPane.INFORMATION_MESSAGE);
+                                frmMain.getFrmAddPublication().dispose();
+                            } else {
+                                throw response.getException();
+                            }
+                            break;
+                            
                     }
                 }
             } catch (Exception ex) {

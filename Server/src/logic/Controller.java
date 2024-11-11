@@ -7,9 +7,11 @@ package logic;
 import logic.so.GetAllPublishers;
 import domain.Member;
 import domain.Employee;
+import domain.Publication;
 import domain.Publisher;
 import java.util.List;
 import logic.so.AddMember;
+import logic.so.AddPublication;
 import logic.so.DeleteMember;
 import logic.so.GetAllMembers;
 import logic.so.Login;
@@ -57,8 +59,6 @@ public class Controller {
     public void updateMember(Member member) throws Exception {
         UpdateMember so = new UpdateMember();
         so.execute(member);
-       
-                
     }
 
     public void deleteMember(Member member) throws Exception {
@@ -70,6 +70,12 @@ public class Controller {
         GetAllPublishers so = new GetAllPublishers();
         so.execute(null);
         return (List<Publisher>) so.getResult();
+    }
+
+    public Publication addPublication(Publication publication) throws Exception {
+        AddPublication so = new AddPublication();
+        so.execute(publication);
+        return (Publication) so.getResult();
     }
 
     

@@ -20,6 +20,14 @@ public class Publication implements Serializable {
     private double price;
     private Long publisherID;
 
+    public Publication(String title, String author, Long quantity, double price, Long publisherID) {
+        this.title = title;
+        this.author = author;
+        this.quantity = quantity;
+        this.price = price;
+        this.publisherID = publisherID;
+    }
+
     public Long getPublisherID() {
         return publisherID;
     }

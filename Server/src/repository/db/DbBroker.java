@@ -6,6 +6,7 @@ package repository.db;
 
 import domain.Member;
 import domain.Employee;
+import domain.Publication;
 import domain.Publisher;
 import java.sql.*;
 import java.util.ArrayList;
@@ -127,14 +128,13 @@ public class DbBroker {
             statement.executeUpdate();
             statement.close();
             System.out.println("Member successfully updated!");
-          
 
         } catch (SQLException ex) {
             System.out.println("Member was not updated!");
             ex.printStackTrace();
-            
+
         }
-   
+
     }
 
     public void deleteMember(Member member) {
@@ -154,7 +154,7 @@ public class DbBroker {
     }
 
     public Object getAllPublishers() {
-         try {
+        try {
             List<Publisher> publishers = new ArrayList<>();
             String query = "SELECT * FROM publisher";
             System.out.println("Query:" + query);
@@ -180,5 +180,26 @@ public class DbBroker {
 
         }
         return null;
+    }
+
+    public void addPublication(Publication publication) {
+        try {
+            String query = "INSERT INTO publication (title, author, quantity, price, publisherID) VALUES (?,?,?,?,?)";
+            System.out.println("Query:" + query);
+
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, publication.getTitle());
+            statement.setString(2, publication.getAuthor());
+            statement.setLong(3, publication.getQuantity());
+            statement.setDouble(4, publication.getPrice());
+            statement.setLong(5, publication.getPublisherID());
+
+            statement.executeUpdate();
+            statement.close();
+            System.out.println("Publication successfully added to the database!");
+        } catch (SQLException ex) {
+            System.out.println("Publication was not added to the database!");
+            ex.printStackTrace();
+        }
     }
 }

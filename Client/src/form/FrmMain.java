@@ -135,7 +135,7 @@ public class FrmMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemReviewMembersActionPerformed
 
     private void jMenuItemAddPublicationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAddPublicationActionPerformed
-        frmAddPublication = new FrmAddPublication(this, true);
+        frmAddPublication = new FrmAddPublication(this, true, NEW);
         frmAddPublication.setVisible(true);
     }//GEN-LAST:event_jMenuItemAddPublicationActionPerformed
 
