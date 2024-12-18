@@ -84,4 +84,19 @@ public class Controller {
         sender.send(request);
     }
 
+    public void getAllPublications() {
+        Request request = new Request(Operation.GetAllPublications, null);
+        sender.send(request);
+    }
+
+    public void deletePublication(Publication publication) {
+        Request request = new Request(Operation.DeletePublication, publication);
+        sender.send(request);
+    }
+
+    public void updatePublication(Publication publication) {
+        Request request = new Request(Operation.UpdatePublication, publication);
+        sender.send(request);
+    }
+
 }

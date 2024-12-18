@@ -12,6 +12,7 @@ import static form.FormMode.EDIT;
 import static form.FormMode.NEW;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,6 +23,7 @@ import java.util.logging.Logger;
 public class FrmAddPublication extends javax.swing.JDialog {
 
     FormMode mode;
+    private Publication publication;
 
     public FrmAddPublication(java.awt.Frame parent, boolean modal, FormMode mode) {
         super(parent, modal);
@@ -64,8 +66,6 @@ public class FrmAddPublication extends javax.swing.JDialog {
         lblPrice.setText("Price:");
 
         lblPublisher.setText("Publisher:");
-
-        jComboBoxPublishers.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnSave.setText("Save");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
@@ -154,7 +154,14 @@ public class FrmAddPublication extends javax.swing.JDialog {
                 ex.printStackTrace();
             }
         } else if (mode == EDIT) {
-        }        // TODO add your handling code here:
+             try {
+                Publisher publisher = (Publisher) jComboBoxPublishers.getSelectedItem();
+                Publication publication = new Publication(this.publication.getPublicationID(),txtTitle.getText().trim(), txtAuthor.getText().trim(), Long.valueOf(txtQuantity.getText().trim()),Double.parseDouble(txtPrice.getText().trim()), publisher.getPublisherID());
+                Controller.getInstance().updatePublication(publication);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }       
     }//GEN-LAST:event_btnSaveActionPerformed
 
 
@@ -177,7 +184,7 @@ public class FrmAddPublication extends javax.swing.JDialog {
         setResizable(false);
     }
 
-    private void getPublishers() {
+    public void getPublishers() {
         try {
             Controller.getInstance().getAllPublishers();
         } catch (IOException ex) {
@@ -191,5 +198,30 @@ public class FrmAddPublication extends javax.swing.JDialog {
             jComboBoxPublishers.addItem(publisher);
         }
     }
+  public void setForm() {
+      System.out.println(publication);
+        txtTitle.setText(publication.getTitle());
+        txtAuthor.setText(publication.getAuthor());
+        txtQuantity.setText(String.valueOf(publication.getQuantity()));
+        txtPrice.setText(String.valueOf(publication.getPrice()));
+    }
 
+    public void setPublication(Publication publication) {
+        this.publication = publication;
+    }
+  
+    public void setSelectedPublisher(List<Publisher> publishers) {
+        setPublisherComboBox(publishers);
+        
+        Optional<Publisher> optionalPublisher = publishers.stream()
+                .filter(publisher -> publisher.getPublisherID().equals(publication.getPublisherID()))
+                .findFirst();
+
+        if (optionalPublisher.isPresent()) {
+            Publisher p = optionalPublisher.get();
+            jComboBoxPublishers.setSelectedItem(p);
+        }
+             
+    }
+    
 }

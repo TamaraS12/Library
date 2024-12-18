@@ -18,12 +18,12 @@ import view.TableModelMember;
  *
  * @author Tamarica
  */
-public class FrmReview extends javax.swing.JDialog {
+public class FrmReviewMembers extends javax.swing.JDialog {
 
     private FrmMain frmMain;
     private FrmAddMember frmAddMember;
 
-    public FrmReview(java.awt.Frame parent, boolean modal) {
+    public FrmReviewMembers(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         centerForm();
@@ -89,7 +89,7 @@ public class FrmReview extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE))
                 .addGap(31, 31, 31)

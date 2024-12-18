@@ -20,8 +20,9 @@ import javax.swing.JLabel;
 public class FrmMain extends javax.swing.JFrame {
 
     private FrmAddMember frmAddMember;
-    private FrmReview frmReview;
+    private FrmReviewMembers frmReviewMembers;
     private FrmAddPublication frmAddPublication;
+    private FrmReviewPublications frmReviewPublications;
 
     public FrmMain() {
         initComponents();
@@ -91,6 +92,11 @@ public class FrmMain extends javax.swing.JFrame {
         jMenuPublication.add(jMenuItemAddPublication);
 
         jMenuItemReviewPublications.setText("Review");
+        jMenuItemReviewPublications.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemReviewPublicationsActionPerformed(evt);
+            }
+        });
         jMenuPublication.add(jMenuItemReviewPublications);
 
         jMenuBarMain.add(jMenuPublication);
@@ -130,14 +136,19 @@ public class FrmMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemAddMemberActionPerformed
 
     private void jMenuItemReviewMembersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemReviewMembersActionPerformed
-        frmReview = new FrmReview(this, true);
-        frmReview.setVisible(true);
+        frmReviewMembers = new FrmReviewMembers(this, true);
+        frmReviewMembers.setVisible(true);
     }//GEN-LAST:event_jMenuItemReviewMembersActionPerformed
 
     private void jMenuItemAddPublicationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAddPublicationActionPerformed
         frmAddPublication = new FrmAddPublication(this, true, NEW);
         frmAddPublication.setVisible(true);
     }//GEN-LAST:event_jMenuItemAddPublicationActionPerformed
+
+    private void jMenuItemReviewPublicationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemReviewPublicationsActionPerformed
+        frmReviewPublications = new FrmReviewPublications(this, true);
+        frmReviewPublications.setVisible(true);
+    }//GEN-LAST:event_jMenuItemReviewPublicationsActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -159,8 +170,12 @@ public class FrmMain extends javax.swing.JFrame {
         return frmAddMember;
     }
 
-    public FrmReview getFrmReview() {
-        return frmReview;
+    public FrmReviewMembers getFrmReviewMembers() {
+        return frmReviewMembers;
+    }
+    
+     public FrmReviewPublications getFrmReviewPublications() {
+        return frmReviewPublications;
     }
 
     private void maxForm() {
@@ -209,4 +224,6 @@ public class FrmMain extends javax.swing.JFrame {
     public FrmAddPublication getFrmAddPublication() {
         return frmAddPublication;
     }
+
+   
 }

@@ -13,9 +13,12 @@ import java.util.List;
 import logic.so.AddMember;
 import logic.so.AddPublication;
 import logic.so.DeleteMember;
+import logic.so.DeletePublication;
 import logic.so.GetAllMembers;
+import logic.so.GetAllPublications;
 import logic.so.Login;
 import logic.so.UpdateMember;
+import logic.so.UpdatePublication;
 
 /**
  *
@@ -76,6 +79,22 @@ public class Controller {
         AddPublication so = new AddPublication();
         so.execute(publication);
         return (Publication) so.getResult();
+    }
+
+    public List<Publication> getAllPublications() throws Exception {
+        GetAllPublications so = new GetAllPublications();
+        so.execute(null);
+        return (List<Publication>) so.getResult();
+    }
+
+    public void deletePublication(Publication publication) throws Exception {
+        DeletePublication so = new DeletePublication();
+        so.execute(publication);
+    }
+
+    public void updatePublication(Publication publication) throws Exception {
+        UpdatePublication so = new UpdatePublication();
+        so.execute(publication);
     }
 
     

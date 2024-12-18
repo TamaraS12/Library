@@ -202,4 +202,74 @@ public class DbBroker {
             ex.printStackTrace();
         }
     }
+
+    public Object getAllPublications() {
+               try {
+            List<Publication> publications = new ArrayList<>();
+            String query = "SELECT * FROM publication";
+            System.out.println("Query:" + query);
+
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+
+            while (rs.next()) {
+                Publication publication = new Publication();
+                publication.setPublicationID(rs.getLong("publicationID"));
+                publication.setTitle(rs.getString("title"));
+                publication.setAuthor(rs.getString("author"));
+                publication.setQuantity(rs.getLong("quantity"));
+                publication.setPrice(rs.getDouble("price"));
+                publication.setPublisherID(rs.getLong("publisherID"));
+                publications.add(publication);
+            }
+            rs.close();
+            statement.close();
+            System.out.println("Successful loading of publications from the database!");
+            return publications;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.out.println("Publications were not successfully loaded from the database!");
+
+        }
+        return null;
+    }
+
+    public void deletePublication(Publication publication) {
+        try {
+            String query = "DELETE FROM publication WHERE publicationID=? ";
+            System.out.println("Query:" + query);
+
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setLong(1, publication.getPublicationID());
+            statement.executeUpdate();
+            statement.close();
+            System.out.println("Publication successfully deleted!");
+        } catch (SQLException ex) {
+            System.out.println("Publication was not deleted!");
+            ex.printStackTrace();
+        }
+    }
+
+    public void updatePublication(Publication publication) {
+             try {
+            String query = "UPDATE publication SET title=?, author=?, quantity=?, price=?, publisherID=? WHERE publicationID=? ";
+            System.out.println("Query:" + query);
+
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, publication.getTitle());
+            statement.setString(2, publication.getAuthor());
+            statement.setLong(3, publication.getQuantity());
+            statement.setDouble(4, publication.getPrice());
+            statement.setLong(5, publication.getPublisherID());
+            statement.setLong(6, publication.getPublicationID());
+            statement.executeUpdate();
+            statement.close();
+            System.out.println("Publication successfully updated!");
+
+        } catch (SQLException ex) {
+            System.out.println("Publication was not updated!");
+            ex.printStackTrace();
+
+        }
+    }
 }

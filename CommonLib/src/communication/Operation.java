@@ -19,4 +19,7 @@ public enum Operation {
     DeleteMember,
     GetAllPublishers,
     AddPublication,
+    GetAllPublications,
+    DeletePublication,
+    UpdatePublication,
 }

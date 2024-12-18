@@ -79,10 +79,26 @@ public class ClientThread extends Thread {
                             response.setResult(publishers);
                             response.setOperation(Operation.GetAllPublishers);
                             break;
-                        case AddPublication:   
+                        case AddPublication:
                             Publication publication = Controller.getInstance().addPublication((Publication) request.getArgument());
                             response.setResult(publication);
                             response.setOperation(Operation.AddPublication);
+                            break;
+                        case GetAllPublications:
+                            List<Publication> publications = Controller.getInstance().getAllPublications();
+                            response.setResult(publications);
+                            response.setOperation(Operation.GetAllPublications);
+                            break;
+                        case DeletePublication:
+                            Controller.getInstance().deletePublication((Publication) request.getArgument());
+                            response.setResult(null);
+                            response.setOperation(Operation.DeletePublication);
+                            break;
+                        case UpdatePublication:
+                            Controller.getInstance().updatePublication((Publication) request.getArgument());
+                            response.setResult(null);
+                            response.setOperation(Operation.UpdatePublication);
+                            break;
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();

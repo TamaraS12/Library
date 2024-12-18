@@ -28,6 +28,10 @@ public class Publication implements Serializable {
         this.publisherID = publisherID;
     }
 
+    public Publication() {
+    }
+     
+
     public Long getPublisherID() {
         return publisherID;
     }

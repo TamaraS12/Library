@@ -9,6 +9,7 @@ import communication.Receiver;
 import controller.Controller;
 import domain.Member;
 import domain.Employee;
+import domain.Publication;
 import domain.Publisher;
 import form.FrmLogin;
 import form.FrmMain;
@@ -55,22 +56,22 @@ public class Client {
                             break;
                         case GetAllMembers:
                             members = (List<Member>) response.getResult();
-                            frmMain.getFrmReview().addMembers(members);
+                            frmMain.getFrmReviewMembers().addMembers(members);
                             break;
                         case AddMember:
                             // Clan clan = (Clan) response.getResult();
                             if (response.getException() == null) {
                                 JOptionPane.showMessageDialog(frmMain.getFrmAddMember(), "New member successfully added!", "Enrollment", JOptionPane.INFORMATION_MESSAGE);
                                 frmMain.getFrmAddMember().dispose();
-                                frmMain.getFrmReview().refreshTable();
+                                frmMain.getFrmReviewMembers().refreshTable();
                             } else {
                                 throw response.getException();
                             }
                             break;
                         case UpdateMember:
                             if (response.getException() == null) {
-                                frmMain.getFrmReview().getFrmAddMember().dispose();
-                                JOptionPane.showMessageDialog(frmMain.getFrmReview().getFrmAddMember(), "Successful update! ", "Update", JOptionPane.INFORMATION_MESSAGE);
+                                frmMain.getFrmReviewMembers().getFrmAddMember().dispose();
+                                JOptionPane.showMessageDialog(frmMain.getFrmReviewMembers().getFrmAddMember(), "Successful update! ", "Update", JOptionPane.INFORMATION_MESSAGE);
                                 Controller.getInstance().getAllMembers();
                             } else {
                                 throw response.getException();
@@ -78,8 +79,8 @@ public class Client {
                             break;
                         case DeleteMember:
                             if (response.getException() == null) {
-                                JOptionPane.showMessageDialog(frmMain.getFrmReview(), "Member successfully deleted! ", "Delete", JOptionPane.INFORMATION_MESSAGE);
-//                                frmMain.getFrmReview().refreshTable();
+                                JOptionPane.showMessageDialog(frmMain.getFrmReviewMembers(), "Member successfully deleted! ", "Delete", JOptionPane.INFORMATION_MESSAGE);
+//                                frmMain.getFrmReviewMembers().refreshTable();
                                 Controller.getInstance().getAllMembers();
                             } else {
                                 throw response.getException();
@@ -87,7 +88,14 @@ public class Client {
                             break;
                         case GetAllPublishers:
                             List<Publisher> publishers = (List<Publisher>) response.getResult();
-                            frmMain.getFrmAddPublication().setPublisherComboBox(publishers);
+                            if (frmMain.getFrmAddPublication() != null) {
+                                frmMain.getFrmAddPublication().setPublisherComboBox(publishers);
+                            } else if (frmMain.getFrmReviewPublications().getFrmAddPublication() != null) {
+                                frmMain.getFrmReviewPublications().getFrmAddPublication().setSelectedPublisher(publishers);
+                                frmMain.getFrmReviewPublications().getFrmAddPublication().setForm();
+                            }
+                            
+                            
                             break;
                         case AddPublication:
                             if (response.getException() == null) {
@@ -97,7 +105,27 @@ public class Client {
                                 throw response.getException();
                             }
                             break;
-                            
+                        case GetAllPublications:
+                            List<Publication> publications = (List<Publication>) response.getResult();
+                            frmMain.getFrmReviewPublications().addPublications(publications);
+                            break;
+                        case DeletePublication:
+                            if (response.getException() == null) {
+                                JOptionPane.showMessageDialog(frmMain.getFrmReviewPublications(), "Publication successfully deleted! ", "Delete", JOptionPane.INFORMATION_MESSAGE);
+                                Controller.getInstance().getAllPublications();
+                            } else {
+                                throw response.getException();
+                            }
+                            break;
+                        case UpdatePublication:
+                            if (response.getException() == null) {
+                                frmMain.getFrmReviewPublications().getFrmAddPublication().dispose();
+                                JOptionPane.showMessageDialog(frmMain.getFrmReviewPublications().getFrmAddPublication(), "Successful update! ", "Update", JOptionPane.INFORMATION_MESSAGE);
+                                Controller.getInstance().getAllPublications();
+                            } else {
+                                throw response.getException();
+                            }
+                            break;
                     }
                 }
             } catch (Exception ex) {
