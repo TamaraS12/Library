@@ -266,4 +266,8 @@ public class FrmMain extends javax.swing.JFrame {
         return frmAddPublication;
     }
 
+    public FrmLiabilities getFrmLiabilities() {
+        return frmLiabilities;
+    }
+
 }

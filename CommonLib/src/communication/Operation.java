@@ -25,4 +25,5 @@ public enum Operation {
     AddPublisher,
     UpdatePublisher,
     DeletePublisher,
+    GetAllLiabilities,
 }

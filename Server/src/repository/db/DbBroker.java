@@ -6,6 +6,7 @@ package repository.db;
 
 import domain.Member;
 import domain.Employee;
+import domain.Liability;
 import domain.Publication;
 import domain.Publisher;
 import java.sql.*;
@@ -64,7 +65,7 @@ public class DbBroker {
     public Object getAllMembers() {
         try {
             List<Member> members = new ArrayList<>();
-            String query = "SELECT * FROM member";
+            String query = "SELECT * FROM library_member";
             System.out.println("Query:" + query);
 
             Statement statement = connection.createStatement();
@@ -94,7 +95,7 @@ public class DbBroker {
 
     public void addMember(Member member) {
         try {
-            String query = "INSERT INTO member (name, last_name, email, phone_number, address) VALUES (?,?,?,?,?)";
+            String query = "INSERT INTO library_member (name, last_name, email, phone_number, address) VALUES (?,?,?,?,?)";
             System.out.println("Query:" + query);
 
             PreparedStatement statement = connection.prepareStatement(query);
@@ -115,7 +116,7 @@ public class DbBroker {
 
     public void updateMember(Member member) {
         try {
-            String query = "UPDATE member SET name=?, last_name=?, email=?, phone_number=?, address=? WHERE memberID=? ";
+            String query = "UPDATE library_member SET name=?, last_name=?, email=?, phone_number=?, address=? WHERE memberID=? ";
             System.out.println("Query:" + query);
 
             PreparedStatement statement = connection.prepareStatement(query);
@@ -139,7 +140,7 @@ public class DbBroker {
 
     public void deleteMember(Member member) {
         try {
-            String query = "DELETE FROM member WHERE memberID=? ";
+            String query = "DELETE FROM library_member WHERE memberID=? ";
             System.out.println("Query:" + query);
 
             PreparedStatement statement = connection.prepareStatement(query);
@@ -331,5 +332,46 @@ public class DbBroker {
             System.out.println("Publisher was not deleted!");
             ex.printStackTrace();
         }
+    }
+
+    public Object getAllLiabilities() {
+                  try {
+            List<Liability> liabilities = new ArrayList<>();
+            String query = "SELECT lm.name, lm.last_name, lm.memberID, p.title, p.author, p.publicationID, l.liabilityID, l.date_from, l.date_to FROM liability AS l JOIN library_member AS lm ON l.memberID = lm.memberID JOIN publication AS p ON l.publicationID = p.publicationID";
+            System.out.println("Query:" + query);
+
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+
+            while (rs.next()) {
+                Liability liability = new Liability();
+                liability.setLiabilityID(rs.getLong("liabilityID"));
+                liability.setDateFrom(rs.getDate("date_from"));
+                liability.setDateTo(rs.getDate("date_to"));
+                
+                Member member = new Member();
+                member.setName(rs.getString("name"));
+                member.setLastName(rs.getString("last_name"));
+                member.setMemberID(rs.getLong("memberID"));
+                
+                Publication publication = new Publication();
+                publication.setTitle(rs.getString("title"));
+                publication.setAuthor(rs.getString("author"));
+                publication.setPublicationID(rs.getLong("publicationID"));
+                
+                liability.setMember(member);
+                liability.setPublication(publication);
+                liabilities.add(liability);
+            }
+            rs.close();
+            statement.close();
+            System.out.println("Successful loading of liabilities from the database!");
+            return liabilities;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.out.println("Liabilities were not successfully loaded from the database!");
+
+        }
+        return null;
     }
 }

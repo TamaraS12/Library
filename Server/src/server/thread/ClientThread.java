@@ -8,6 +8,7 @@ import communication.*;
 import static communication.Operation.AddMember;
 import domain.Member;
 import domain.Employee;
+import domain.Liability;
 import domain.Publication;
 import domain.Publisher;
 import java.net.Socket;
@@ -114,6 +115,11 @@ public class ClientThread extends Thread {
                             Controller.getInstance().deletePublisher((Publisher) request.getArgument());
                             response.setResult(null);
                             response.setOperation(Operation.DeletePublisher);
+                            break;
+                        case GetAllLiabilities:
+                            List<Liability> liabilities = Controller.getInstance().getAllLiabilities();
+                            response.setResult(liabilities);
+                            response.setOperation(Operation.GetAllLiabilities);
                             break;
                     }
                 } catch (Exception ex) {

@@ -98,4 +98,10 @@ public class Controller {
         so.execute(publisher);
     }
 
+    public List<Liability> getAllLiabilities() throws Exception {
+        GetAllLiabilities so = new GetAllLiabilities();
+        so.execute(null);
+        return (List<Liability>) so.getResult();
+    }
+
 }

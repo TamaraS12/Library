@@ -4,15 +4,8 @@
  */
 package controller;
 
-import communication.Operation;
-import communication.Receiver;
-import communication.Request;
-import communication.Response;
-import communication.Sender;
-import domain.Member;
-import domain.Employee;
-import domain.Publication;
-import domain.Publisher;
+import communication.*;
+import domain.*;
 import java.io.IOException;
 import java.net.Socket;
 
@@ -61,10 +54,6 @@ public class Controller {
         sender.send(request);
     }
 
-//    public void pronadjiClana(Clan clan) {
-//        Request request = new Request(Operation.FindMember, clan);
-//        sender.send(request);
-//    }
     public void updateMember(Member member) {
         Request request = new Request(Operation.UpdateMember, member);
         sender.send(request);
@@ -112,6 +101,11 @@ public class Controller {
 
     public void deletePublisher(Publisher publisher) {
         Request request = new Request(Operation.DeletePublisher, publisher);
+        sender.send(request);
+    }
+
+    public void getAllLiabilities() {
+        Request request = new Request(Operation.GetAllLiabilities, null);
         sender.send(request);
     }
 

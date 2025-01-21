@@ -148,6 +148,10 @@ public class Client {
                                 throw response.getException();
                             }
                             break; 
+                        case GetAllLiabilities:
+                            List<Liability> liabilities = (List<Liability>) response.getResult();
+                            frmMain.getFrmLiabilities().addLiabilities(liabilities);
+                            break;
                     }
                 }
             } catch (Exception ex) {
