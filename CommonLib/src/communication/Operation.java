@@ -22,4 +22,7 @@ public enum Operation {
     GetAllPublications,
     DeletePublication,
     UpdatePublication,
+    AddPublisher,
+    UpdatePublisher,
+    DeletePublisher,
 }

@@ -5,6 +5,7 @@
 package server.thread;
 
 import communication.*;
+import static communication.Operation.AddMember;
 import domain.Member;
 import domain.Employee;
 import domain.Publication;
@@ -98,6 +99,21 @@ public class ClientThread extends Thread {
                             Controller.getInstance().updatePublication((Publication) request.getArgument());
                             response.setResult(null);
                             response.setOperation(Operation.UpdatePublication);
+                            break;
+                        case AddPublisher:
+                            Publisher publisher = Controller.getInstance().addPublisher((Publisher) request.getArgument());
+                            response.setResult(publisher);
+                            response.setOperation(Operation.AddPublisher);
+                            break; 
+                        case UpdatePublisher: 
+                            Controller.getInstance().updatePublisher((Publisher) request.getArgument());
+                            response.setResult(null);
+                            response.setOperation(Operation.UpdatePublisher);
+                            break;
+                        case DeletePublisher:
+                            Controller.getInstance().deletePublisher((Publisher) request.getArgument());
+                            response.setResult(null);
+                            response.setOperation(Operation.DeletePublisher);
                             break;
                     }
                 } catch (Exception ex) {

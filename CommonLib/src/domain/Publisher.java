@@ -17,18 +17,35 @@ public class Publisher implements Serializable {
     private String name;
     private String address;
     private String email;
+    private String phone;
 
-    public Publisher(Long publisherID, String name, String address, String email) {
+    public Publisher(Long publisherID, String name, String address, String email, String phone) {
         this.publisherID = publisherID;
         this.name = name;
         this.address = address;
         this.email = email;
-    }
-
-    public Publisher() {
+        this.phone = phone;
     }
     
+    public Publisher(String name, String address, String email, String phone) {
+        this.name = name;
+        this.address = address;
+        this.email = email;
+        this.phone = phone;
+    }
+    
+    public Publisher() {
+    }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+    
+    
     public Long getPublisherID() {
         return publisherID;
     }
@@ -63,11 +80,12 @@ public class Publisher implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 31 * hash + Objects.hashCode(this.publisherID);
-        hash = 31 * hash + Objects.hashCode(this.name);
-        hash = 31 * hash + Objects.hashCode(this.address);
-        hash = 31 * hash + Objects.hashCode(this.email);
+        int hash = 7;
+        hash = 37 * hash + Objects.hashCode(this.publisherID);
+        hash = 37 * hash + Objects.hashCode(this.name);
+        hash = 37 * hash + Objects.hashCode(this.address);
+        hash = 37 * hash + Objects.hashCode(this.email);
+        hash = 37 * hash + Objects.hashCode(this.phone);
         return hash;
     }
 
@@ -92,8 +110,12 @@ public class Publisher implements Serializable {
         if (!Objects.equals(this.email, other.email)) {
             return false;
         }
+        if (!Objects.equals(this.phone, other.phone)) {
+            return false;
+        }
         return Objects.equals(this.publisherID, other.publisherID);
     }
+
 
     @Override
     public String toString() {

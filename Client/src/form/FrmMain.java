@@ -23,6 +23,9 @@ public class FrmMain extends javax.swing.JFrame {
     private FrmReviewMembers frmReviewMembers;
     private FrmAddPublication frmAddPublication;
     private FrmReviewPublications frmReviewPublications;
+    private FrmAddPublisher frmAddPublisher;
+    private FrmReviewPublishers frmReviewPublishers;
+    private FrmLiabilities frmLiabilities;
 
     public FrmMain() {
         initComponents();
@@ -77,6 +80,11 @@ public class FrmMain extends javax.swing.JFrame {
         jMenuMember.add(jMenuItemReviewMembers);
 
         jMenuItemLiabilities.setText("Liabilities");
+        jMenuItemLiabilities.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemLiabilitiesActionPerformed(evt);
+            }
+        });
         jMenuMember.add(jMenuItemLiabilities);
 
         jMenuBarMain.add(jMenuMember);
@@ -104,9 +112,19 @@ public class FrmMain extends javax.swing.JFrame {
         jMenuPublisher.setText("Publishers");
 
         jMenuItemAddPublisher.setText("New");
+        jMenuItemAddPublisher.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemAddPublisherActionPerformed(evt);
+            }
+        });
         jMenuPublisher.add(jMenuItemAddPublisher);
 
         jMenuItemReviewPublishers.setText("Review");
+        jMenuItemReviewPublishers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemReviewPublishersActionPerformed(evt);
+            }
+        });
         jMenuPublisher.add(jMenuItemReviewPublishers);
 
         jMenuItemPurchaseOrder.setText("Purchase order");
@@ -150,6 +168,21 @@ public class FrmMain extends javax.swing.JFrame {
         frmReviewPublications.setVisible(true);
     }//GEN-LAST:event_jMenuItemReviewPublicationsActionPerformed
 
+    private void jMenuItemAddPublisherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAddPublisherActionPerformed
+        frmAddPublisher = new FrmAddPublisher(this, true, NEW);
+        frmAddPublisher.setVisible(true);
+    }//GEN-LAST:event_jMenuItemAddPublisherActionPerformed
+
+    private void jMenuItemReviewPublishersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemReviewPublishersActionPerformed
+       frmReviewPublishers = new FrmReviewPublishers(this, true);
+       frmReviewPublishers.setVisible(true);
+    }//GEN-LAST:event_jMenuItemReviewPublishersActionPerformed
+
+    private void jMenuItemLiabilitiesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLiabilitiesActionPerformed
+       frmLiabilities = new FrmLiabilities(this, true);
+       frmLiabilities.setVisible(true);
+    }//GEN-LAST:event_jMenuItemLiabilitiesActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBarMain;
@@ -173,11 +206,19 @@ public class FrmMain extends javax.swing.JFrame {
     public FrmReviewMembers getFrmReviewMembers() {
         return frmReviewMembers;
     }
-    
-     public FrmReviewPublications getFrmReviewPublications() {
+
+    public FrmReviewPublications getFrmReviewPublications() {
         return frmReviewPublications;
     }
 
+    public FrmAddPublisher getFrmAddPublisher(){
+        return frmAddPublisher;
+    }
+    
+    public FrmReviewPublishers getFrmReviewPublishers() {
+        return frmReviewPublishers;
+    }
+    
     private void maxForm() {
         setExtendedState(MAXIMIZED_BOTH);
     }
@@ -225,5 +266,4 @@ public class FrmMain extends javax.swing.JFrame {
         return frmAddPublication;
     }
 
-   
 }

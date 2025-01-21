@@ -5,25 +5,10 @@
 package logic;
 
 import logic.so.GetAllPublishers;
-import domain.Member;
-import domain.Employee;
-import domain.Publication;
-import domain.Publisher;
+import domain.*;
 import java.util.List;
-import logic.so.AddMember;
-import logic.so.AddPublication;
-import logic.so.DeleteMember;
-import logic.so.DeletePublication;
-import logic.so.GetAllMembers;
-import logic.so.GetAllPublications;
-import logic.so.Login;
-import logic.so.UpdateMember;
-import logic.so.UpdatePublication;
+import logic.so.*;
 
-/**
- *
- * @author Tamarica
- */
 public class Controller {
 
     private static Controller instance;
@@ -97,5 +82,20 @@ public class Controller {
         so.execute(publication);
     }
 
-    
+    public Publisher addPublisher(Publisher publisher) throws Exception {
+        AddPublisher so = new AddPublisher();
+        so.execute(publisher);
+        return (Publisher) so.getResult();
+    }
+
+    public void updatePublisher(Publisher publisher) throws Exception {
+        UpdatePublisher so = new UpdatePublisher();
+        so.execute(publisher);
+    }
+
+    public void deletePublisher(Publisher publisher) throws Exception {
+        DeletePublisher so = new DeletePublisher();
+        so.execute(publisher);
+    }
+
 }

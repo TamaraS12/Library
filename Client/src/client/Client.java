@@ -7,10 +7,7 @@ package client;
 import communication.Response;
 import communication.Receiver;
 import controller.Controller;
-import domain.Member;
-import domain.Employee;
-import domain.Publication;
-import domain.Publisher;
+import domain.*;
 import form.FrmLogin;
 import form.FrmMain;
 import java.io.IOException;
@@ -88,14 +85,14 @@ public class Client {
                             break;
                         case GetAllPublishers:
                             List<Publisher> publishers = (List<Publisher>) response.getResult();
-                            if (frmMain.getFrmAddPublication() != null) {
+                            if (frmMain.getFrmAddPublication() != null && frmMain.getFrmAddPublication().isVisible()) {
                                 frmMain.getFrmAddPublication().setPublisherComboBox(publishers);
-                            } else if (frmMain.getFrmReviewPublications().getFrmAddPublication() != null) {
+                            } else if (frmMain.getFrmReviewPublications() != null && frmMain.getFrmReviewPublications().getFrmAddPublication() != null && frmMain.getFrmReviewPublications().getFrmAddPublication().isVisible()) {
                                 frmMain.getFrmReviewPublications().getFrmAddPublication().setSelectedPublisher(publishers);
                                 frmMain.getFrmReviewPublications().getFrmAddPublication().setForm();
+                            } else if (frmMain.getFrmReviewPublishers() != null && frmMain.getFrmReviewPublishers().isVisible()) {
+                                frmMain.getFrmReviewPublishers().addPublishers(publishers);
                             }
-                            
-                            
                             break;
                         case AddPublication:
                             if (response.getException() == null) {
@@ -126,6 +123,31 @@ public class Client {
                                 throw response.getException();
                             }
                             break;
+                        case AddPublisher:
+                            if (response.getException() == null) {
+                                JOptionPane.showMessageDialog(frmMain.getFrmAddPublisher(), "New publisher successfully added!", "Add", JOptionPane.INFORMATION_MESSAGE);
+                                frmMain.getFrmAddPublisher().dispose();
+                            } else {
+                                throw response.getException();
+                            }
+                            break;
+                        case UpdatePublisher:
+                               if (response.getException() == null) {
+                                frmMain.getFrmReviewPublishers().getFrmAddPublisher().dispose();
+                                JOptionPane.showMessageDialog(frmMain.getFrmReviewPublishers().getFrmAddPublisher(), "Successful update! ", "Update", JOptionPane.INFORMATION_MESSAGE);
+                                Controller.getInstance().getAllPublishers();
+                            } else {
+                                throw response.getException();
+                            }
+                            break;
+                        case DeletePublisher:
+                           if (response.getException() == null) {
+                                JOptionPane.showMessageDialog(frmMain.getFrmReviewPublishers(), "Publisher successfully deleted! ", "Delete", JOptionPane.INFORMATION_MESSAGE);
+                                Controller.getInstance().getAllPublishers();
+                            } else {
+                                throw response.getException();
+                            }
+                            break; 
                     }
                 }
             } catch (Exception ex) {

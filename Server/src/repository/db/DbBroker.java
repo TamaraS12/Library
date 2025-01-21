@@ -168,6 +168,7 @@ public class DbBroker {
                 publisher.setName(rs.getString("name"));
                 publisher.setAddress(rs.getString("address"));
                 publisher.setEmail(rs.getString("email"));
+                publisher.setPhone(rs.getString("phone"));
                 publishers.add(publisher);
             }
             rs.close();
@@ -270,6 +271,65 @@ public class DbBroker {
             System.out.println("Publication was not updated!");
             ex.printStackTrace();
 
+        }
+    }
+
+    public void addPublisher(Publisher publisher) {
+           try {
+            String query = "INSERT INTO publisher (name, address, email, phone) VALUES (?,?,?,?)";
+            System.out.println("Query:" + query);
+
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, publisher.getName());
+            statement.setString(2, publisher.getAddress());
+            statement.setString(3, publisher.getEmail());
+            statement.setString(4, publisher.getPhone());
+
+            statement.executeUpdate();
+            statement.close();
+            System.out.println("Publisher successfully added to the database!");
+        } catch (SQLException ex) {
+            System.out.println("Publisher was not added to the database!");
+            ex.printStackTrace();
+        }
+    }
+
+    public void updatePublisher(Publisher publisher) {
+         try {
+            String query = "UPDATE publisher SET name=?, address=?, email=?, phone=? WHERE publisherID=? ";
+            System.out.println("Query:" + query);
+
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, publisher.getName());
+            statement.setString(2, publisher.getAddress());
+            statement.setString(3, publisher.getEmail());
+            statement.setString(4, publisher.getPhone());
+            
+            statement.setLong(5, publisher.getPublisherID());
+            statement.executeUpdate();
+            statement.close();
+            System.out.println("Publisher successfully updated!");
+
+        } catch (SQLException ex) {
+            System.out.println("Publisher was not updated!");
+            ex.printStackTrace();
+
+        }
+    }
+
+    public void deletePublisher(Publisher publisher) {
+        try {
+            String query = "DELETE FROM publisher WHERE publisherID=? ";
+            System.out.println("Query:" + query);
+
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setLong(1, publisher.getPublisherID());
+            statement.executeUpdate();
+            statement.close();
+            System.out.println("Publisher successfully deleted!");
+        } catch (SQLException ex) {
+            System.out.println("Publisher was not deleted!");
+            ex.printStackTrace();
         }
     }
 }

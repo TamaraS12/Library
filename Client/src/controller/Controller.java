@@ -12,6 +12,7 @@ import communication.Sender;
 import domain.Member;
 import domain.Employee;
 import domain.Publication;
+import domain.Publisher;
 import java.io.IOException;
 import java.net.Socket;
 
@@ -96,6 +97,21 @@ public class Controller {
 
     public void updatePublication(Publication publication) {
         Request request = new Request(Operation.UpdatePublication, publication);
+        sender.send(request);
+    }
+
+    public void addPublisher(Publisher publisher) {
+        Request request = new Request(Operation.AddPublisher, publisher);
+        sender.send(request);
+    }
+
+    public void updatePublisher(Publisher publisher) {
+        Request request = new Request(Operation.UpdatePublisher, publisher);
+        sender.send(request);
+    }
+
+    public void deletePublisher(Publisher publisher) {
+        Request request = new Request(Operation.DeletePublisher, publisher);
         sender.send(request);
     }
 
