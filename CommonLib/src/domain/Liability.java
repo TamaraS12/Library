@@ -5,6 +5,7 @@
 package domain;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -15,20 +16,28 @@ import java.util.Objects;
 public class Liability implements Serializable {
     
     private Long liabilityID;
-    private Date dateFrom;
-    private Date dateTo;
+    private LocalDate dateFrom;
+    private LocalDate dateTo;
     private Member member;
     private Publication publication;
 
     public Liability() {
     }
 
-    public Liability(Long liabilityID, Date dateFrom, Date dateTo, Member member, Publication publication) {
+    public Liability(Long liabilityID, LocalDate dateFrom, LocalDate dateTo, Member member, Publication publication) {
         this.liabilityID = liabilityID;
         this.dateFrom = dateFrom;
         this.dateTo = dateTo;
         this.member = member;
         this.publication = publication;
+    }
+
+    public Liability(Long memberID, Long publicationID, LocalDate dateFrom, LocalDate dateTo) {
+        this.dateFrom = dateFrom;
+        this.dateTo = dateTo;
+        this.member = new Member(memberID);
+        this.publication = new Publication(publicationID);
+        
     }
 
     public Long getLiabilityID() {
@@ -39,19 +48,19 @@ public class Liability implements Serializable {
         this.liabilityID = liabilityID;
     }
 
-    public Date getDateFrom() {
+    public LocalDate getDateFrom() {
         return dateFrom;
     }
 
-    public void setDateFrom(Date dateFrom) {
+    public void setDateFrom(LocalDate dateFrom) {
         this.dateFrom = dateFrom;
     }
 
-    public Date getDateTo() {
+    public LocalDate getDateTo() {
         return dateTo;
     }
 
-    public void setDateTo(Date dateTo) {
+    public void setDateTo(LocalDate dateTo) {
         this.dateTo = dateTo;
     }
 
@@ -113,6 +122,8 @@ public class Liability implements Serializable {
     public String toString() {
         return "Liability{" + "liabilityID=" + liabilityID + ", dateFrom=" + dateFrom + ", dateTo=" + dateTo + ", member=" + member + ", publication=" + publication + '}';
     }
+
+
 
     
     

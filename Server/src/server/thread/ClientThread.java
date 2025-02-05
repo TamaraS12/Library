@@ -105,8 +105,8 @@ public class ClientThread extends Thread {
                             Publisher publisher = Controller.getInstance().addPublisher((Publisher) request.getArgument());
                             response.setResult(publisher);
                             response.setOperation(Operation.AddPublisher);
-                            break; 
-                        case UpdatePublisher: 
+                            break;
+                        case UpdatePublisher:
                             Controller.getInstance().updatePublisher((Publisher) request.getArgument());
                             response.setResult(null);
                             response.setOperation(Operation.UpdatePublisher);
@@ -120,6 +120,26 @@ public class ClientThread extends Thread {
                             List<Liability> liabilities = Controller.getInstance().getAllLiabilities();
                             response.setResult(liabilities);
                             response.setOperation(Operation.GetAllLiabilities);
+                            break;
+                        case DeleteLiability:
+                            Controller.getInstance().deleteLiability((Liability) request.getArgument());
+                            response.setResult(null);
+                            response.setOperation(Operation.DeleteLiability);
+                            break;
+                        case AddLiability:
+                            Liability liability = Controller.getInstance().addLiability((Liability) request.getArgument());
+                            response.setResult(liability);
+                            response.setOperation(Operation.AddLiability);
+                            break;
+                        case UpdateLiability:
+                            Controller.getInstance().updateLiability((Liability) request.getArgument());
+                            response.setResult(null);
+                            response.setOperation(Operation.UpdateLiability);
+                            break;
+                        case GetPublicationsByPublisherId:
+                            List<Publication> publisherPublications = Controller.getInstance().getPublicationsByPublisherId((Long) request.getArgument());
+                            response.setResult(publisherPublications);
+                            response.setOperation(Operation.GetPublicationsByPublisherId);
                             break;
                     }
                 } catch (Exception ex) {

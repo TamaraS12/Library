@@ -30,7 +30,10 @@ public class Publication implements Serializable {
 
     public Publication() {
     }
-     
+
+    Publication(Long publicationID) {
+        this.publicationID = publicationID;
+    }
 
     public Long getPublisherID() {
         return publisherID;
@@ -48,8 +51,6 @@ public class Publication implements Serializable {
         this.price = price;
         this.publisherID = publisherID;
     }
-
- 
 
     public Long getPublicationID() {
         return publicationID;
@@ -133,10 +134,9 @@ public class Publication implements Serializable {
         return Objects.equals(this.publisherID, other.publisherID);
     }
 
-
     @Override
     public String toString() {
-        return "Publication{" + "publicationID=" + publicationID + ", title=" + title + ", author=" + author + ", quantity=" + quantity + ", price=" + price + ", publisherID=" + publisherID + '}';
+        return title + " " + author;
     }
 
 }

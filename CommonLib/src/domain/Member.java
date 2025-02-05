@@ -40,6 +40,10 @@ public class Member implements Serializable {
     public Member() {
     }
 
+    Member(Long memberID) {
+        this.memberID = memberID;
+    }
+
     public Long getMemberID() {
         return memberID;
     }
@@ -132,6 +136,6 @@ public class Member implements Serializable {
 
     @Override
     public String toString() {
-        return "Member{" + "memberID=" + memberID + ", name=" + name + ", lastName=" + lastName + ", email=" + email + ", phoneNumber=" + phoneNumber + ", address=" + address + '}';
+        return name +" "+ lastName;
     }
 }

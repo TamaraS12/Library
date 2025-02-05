@@ -8,6 +8,7 @@ import communication.Response;
 import communication.Receiver;
 import controller.Controller;
 import domain.*;
+import form.FormMode;
 import form.FrmLogin;
 import form.FrmMain;
 import java.io.IOException;
@@ -53,7 +54,17 @@ public class Client {
                             break;
                         case GetAllMembers:
                             members = (List<Member>) response.getResult();
-                            frmMain.getFrmReviewMembers().addMembers(members);
+                            if (frmMain.getFrmReviewMembers() != null && frmMain.getFrmReviewMembers().isVisible()) {
+                                frmMain.getFrmReviewMembers().addMembers(members);
+                            } else if (frmMain.getFrmLiabilities().getFrmAddLiability() != null && frmMain.getFrmLiabilities().getFrmAddLiability().isVisible()) {
+                                if (frmMain.getFrmLiabilities().getFrmAddLiability().getMode().equals(FormMode.NEW)) {
+                                    frmMain.getFrmLiabilities().getFrmAddLiability().setFullNameComboBox(members);
+                                } else {
+                                    frmMain.getFrmLiabilities().getFrmAddLiability().setSelectedMember(members);
+                                    frmMain.getFrmLiabilities().getFrmAddLiability().setForm();
+                                }
+                            }
+
                             break;
                         case AddMember:
                             // Clan clan = (Clan) response.getResult();
@@ -92,6 +103,8 @@ public class Client {
                                 frmMain.getFrmReviewPublications().getFrmAddPublication().setForm();
                             } else if (frmMain.getFrmReviewPublishers() != null && frmMain.getFrmReviewPublishers().isVisible()) {
                                 frmMain.getFrmReviewPublishers().addPublishers(publishers);
+                            } else if (frmMain.getFrmOrder() != null && frmMain.getFrmOrder().isVisible()) {
+                                frmMain.getFrmOrder().setCmbPublisher(publishers);
                             }
                             break;
                         case AddPublication:
@@ -104,7 +117,16 @@ public class Client {
                             break;
                         case GetAllPublications:
                             List<Publication> publications = (List<Publication>) response.getResult();
-                            frmMain.getFrmReviewPublications().addPublications(publications);
+                            if (frmMain.getFrmReviewPublications() != null && frmMain.getFrmReviewPublications().isVisible()) {
+                                frmMain.getFrmReviewPublications().addPublications(publications);
+                            } else if (frmMain.getFrmLiabilities().getFrmAddLiability() != null && frmMain.getFrmLiabilities().getFrmAddLiability().isVisible()) {
+                                if (frmMain.getFrmLiabilities().getFrmAddLiability().getMode().equals(FormMode.EDIT)) {
+                                    frmMain.getFrmLiabilities().getFrmAddLiability().setTitleComboBox(publications);
+                                } else {
+                                    frmMain.getFrmLiabilities().getFrmAddLiability().setSelectedPublication(publications);
+                                    frmMain.getFrmLiabilities().getFrmAddLiability().setForm();
+                                }
+                            }
                             break;
                         case DeletePublication:
                             if (response.getException() == null) {
@@ -132,7 +154,7 @@ public class Client {
                             }
                             break;
                         case UpdatePublisher:
-                               if (response.getException() == null) {
+                            if (response.getException() == null) {
                                 frmMain.getFrmReviewPublishers().getFrmAddPublisher().dispose();
                                 JOptionPane.showMessageDialog(frmMain.getFrmReviewPublishers().getFrmAddPublisher(), "Successful update! ", "Update", JOptionPane.INFORMATION_MESSAGE);
                                 Controller.getInstance().getAllPublishers();
@@ -141,16 +163,45 @@ public class Client {
                             }
                             break;
                         case DeletePublisher:
-                           if (response.getException() == null) {
+                            if (response.getException() == null) {
                                 JOptionPane.showMessageDialog(frmMain.getFrmReviewPublishers(), "Publisher successfully deleted! ", "Delete", JOptionPane.INFORMATION_MESSAGE);
                                 Controller.getInstance().getAllPublishers();
                             } else {
                                 throw response.getException();
                             }
-                            break; 
+                            break;
                         case GetAllLiabilities:
                             List<Liability> liabilities = (List<Liability>) response.getResult();
                             frmMain.getFrmLiabilities().addLiabilities(liabilities);
+                            break;
+                        case DeleteLiability:
+                            if (response.getException() == null) {
+                                JOptionPane.showMessageDialog(frmMain.getFrmLiabilities(), "Liability successfully deleted! ", "Delete", JOptionPane.INFORMATION_MESSAGE);
+                                Controller.getInstance().getAllLiabilities();
+                            } else {
+                                throw response.getException();
+                            }
+                            break;
+                        case AddLiability:
+                            if (response.getException() == null) {
+                                JOptionPane.showMessageDialog(frmMain.getFrmLiabilities().getFrmAddLiability(), "New liability successfully added!", "Add", JOptionPane.INFORMATION_MESSAGE);
+                                frmMain.getFrmLiabilities().getFrmAddLiability().dispose();
+                                Controller.getInstance().getAllLiabilities();
+                            } else {
+                                throw response.getException();
+                            }
+                            break;
+                        case UpdateLiability:
+                            if (response.getException() == null) {
+                                frmMain.getFrmLiabilities().getFrmAddLiability().dispose();
+                                JOptionPane.showMessageDialog(frmMain.getFrmLiabilities().getFrmAddLiability(), "Successful update! ", "Update", JOptionPane.INFORMATION_MESSAGE);
+                                Controller.getInstance().getAllLiabilities();
+                            } else {
+                                throw response.getException();
+                            }
+                            break;
+                        case GetPublicationsByPublisherId:
+                            frmMain.getFrmOrder().setCmbPublication((List<Publication>) response.getResult());
                             break;
                     }
                 }

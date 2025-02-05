@@ -109,4 +109,24 @@ public class Controller {
         sender.send(request);
     }
 
+    public void deleteLiability(Liability liability) {
+        Request request = new Request(Operation.DeleteLiability, liability);
+        sender.send(request);
+    }
+
+    public void addLiability(Liability liability) {
+        Request request = new Request(Operation.AddLiability, liability);
+        sender.send(request);
+    }
+
+    public void updateLiability(Liability liability) {
+        Request request = new Request(Operation.UpdateLiability, liability);
+        sender.send(request);
+    }
+
+    public void getPublicationsByPublisherId(Long publisherID) {
+        Request request = new Request(Operation.GetPublicationsByPublisherId, publisherID);
+        sender.send(request);
+    }
+
 }

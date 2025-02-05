@@ -104,4 +104,26 @@ public class Controller {
         return (List<Liability>) so.getResult();
     }
 
+    public void deleteLiability(Liability liability) throws Exception {
+        DeleteLiability so = new DeleteLiability();
+        so.execute(liability);
+    }
+
+    public Liability addLiability(Liability liability) throws Exception {
+        AddLiability so = new AddLiability();
+        so.execute(liability);
+        return (Liability) so.getResult();
+    }
+
+    public void updateLiability(Liability liability) throws Exception {
+        UpdateLiability so = new UpdateLiability();
+        so.execute(liability);
+    }
+
+    public List<Publication> getPublicationsByPublisherId(Long publisherID) throws Exception {
+        GetPublicationsByPublisherId so = new GetPublicationsByPublisherId();
+        so.execute(publisherID);
+        return (List<Publication>) so.getResult();
+    }
+
 }

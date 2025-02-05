@@ -26,6 +26,7 @@ public class FrmMain extends javax.swing.JFrame {
     private FrmAddPublisher frmAddPublisher;
     private FrmReviewPublishers frmReviewPublishers;
     private FrmLiabilities frmLiabilities;
+    private FrmOrder frmOrder;
 
     public FrmMain() {
         initComponents();
@@ -128,6 +129,11 @@ public class FrmMain extends javax.swing.JFrame {
         jMenuPublisher.add(jMenuItemReviewPublishers);
 
         jMenuItemPurchaseOrder.setText("Purchase order");
+        jMenuItemPurchaseOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemPurchaseOrderActionPerformed(evt);
+            }
+        });
         jMenuPublisher.add(jMenuItemPurchaseOrder);
 
         jMenuBarMain.add(jMenuPublisher);
@@ -183,6 +189,11 @@ public class FrmMain extends javax.swing.JFrame {
        frmLiabilities.setVisible(true);
     }//GEN-LAST:event_jMenuItemLiabilitiesActionPerformed
 
+    private void jMenuItemPurchaseOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPurchaseOrderActionPerformed
+       frmOrder = new FrmOrder(this, true);
+       frmOrder.setVisible(true);
+    }//GEN-LAST:event_jMenuItemPurchaseOrderActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBarMain;
@@ -228,24 +239,12 @@ public class FrmMain extends javax.swing.JFrame {
     }
 
     private void setDimension() {
-
         setLocation(300, 150);
         setSize(1000, 600);
         setResizable(false);
     }
 
     private void addImage() {
-//     ImageIcon imageIcon = new ImageIcon(getClass().getResource("/view/biblioteka.jpg"));
-//
-//        if (imageIcon.getIconWidth() == -1) {
-//            System.out.println("Image not loaded. Check the path.");
-//        }
-//        //ImageIcon imageIcon = new ImageIcon("D:\\PS projekti\\Biblioteka\\Client\\biblioteka.jpg");     // D:\PS projekti\Biblioteka\Client\biblioteka.jpg
-//        JLabel imageLabel = new JLabel(imageIcon);
-//        this.add(imageLabel);
-//       this.revalidate();
-//        this.repaint();
-
         URL imageUrl = getClass().getResource("/img/biblioteka-slika.jpg");
         if (imageUrl == null) {
             System.out.println("Image resource not found. Check the path.");
@@ -268,6 +267,10 @@ public class FrmMain extends javax.swing.JFrame {
 
     public FrmLiabilities getFrmLiabilities() {
         return frmLiabilities;
+    }
+    
+    public FrmOrder getFrmOrder(){
+        return frmOrder;
     }
 
 }

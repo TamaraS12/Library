@@ -6,18 +6,23 @@ package form;
 
 import controller.Controller;
 import domain.Liability;
+import domain.Publication;
+import static form.FormMode.EDIT;
 import java.io.IOException;
 import java.util.List;
+import javax.swing.JOptionPane;
 import view.TableModelLiability;
+import view.TableModelPublication;
 
 /**
  *
  * @author Tamarica
  */
-public class FrmLiabilities extends javax.swing.JDialog {
+public class FrmLiabilities extends javax.swing.JFrame {
+
+    private FrmAddLiability frmAddLiability;
 
     public FrmLiabilities(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
         initComponents();
         centerForm();
         prepareTableLiabilities();
@@ -57,10 +62,25 @@ public class FrmLiabilities extends javax.swing.JDialog {
         jScrollPane1.setViewportView(tblLiabilities);
 
         btnNew.setText("New");
+        btnNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewActionPerformed(evt);
+            }
+        });
 
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
         lblFilter.setText("Filter liabilities:");
 
@@ -76,12 +96,12 @@ public class FrmLiabilities extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(txtFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -101,11 +121,47 @@ public class FrmLiabilities extends javax.swing.JDialog {
                             .addComponent(txtFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(31, 31, 31)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
+        frmAddLiability = new FrmAddLiability(this, true, FormMode.NEW);
+        frmAddLiability.setVisible(true);
+    }//GEN-LAST:event_btnNewActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        try {
+            int index = tblLiabilities.getSelectedRow();
+            if (index != -1) {
+
+                TableModelLiability tm = (TableModelLiability) tblLiabilities.getModel();
+                List<Liability> liabilities = tm.getLiabilities();
+                Liability liability = liabilities.get(index);
+                Controller.getInstance().deleteLiability(liability);
+            } else {
+                JOptionPane.showMessageDialog(this, "Select the liability!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        int index = tblLiabilities.getSelectedRow();
+        if (index != -1) {
+            TableModelLiability tm = (TableModelLiability) tblLiabilities.getModel();
+            List<Liability> liabilities = tm.getLiabilities();
+            Liability liability = liabilities.get(index);
+            frmAddLiability = new FrmAddLiability(this, true, EDIT);
+            frmAddLiability.setLiability(liability);
+            frmAddLiability.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Select the publication!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -117,11 +173,11 @@ public class FrmLiabilities extends javax.swing.JDialog {
     private javax.swing.JTable tblLiabilities;
     private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
+   
     private void centerForm() {
         setLocationRelativeTo(null);
     }
 
-    
     private void prepareTableLiabilities() {
         try {
             Controller.getInstance().getAllLiabilities();
@@ -131,7 +187,11 @@ public class FrmLiabilities extends javax.swing.JDialog {
     }
 
     public void addLiabilities(List<Liability> liabilities) {
-          TableModelLiability tm = new TableModelLiability(liabilities);
-          tblLiabilities.setModel(tm);
+        TableModelLiability tm = new TableModelLiability(liabilities);
+        tblLiabilities.setModel(tm);
+    }
+
+    public FrmAddLiability getFrmAddLiability() {
+        return frmAddLiability;
     }
 }

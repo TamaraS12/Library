@@ -199,7 +199,6 @@ public class FrmAddPublication extends javax.swing.JDialog {
         }
     }
   public void setForm() {
-      System.out.println(publication);
         txtTitle.setText(publication.getTitle());
         txtAuthor.setText(publication.getAuthor());
         txtQuantity.setText(String.valueOf(publication.getQuantity()));
